@@ -1,0 +1,95 @@
+{
+  "name": "My workflow 10",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "1bead7fa-0157-4d2c-9677-926852a4b018",
+        "responseMode": "lastNode",
+        "responseData": "allEntries",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -176,
+        -64
+      ],
+      "id": "ec81005c-cb75-41fe-adf3-db603628a7cf",
+      "name": "Webhook",
+      "webhookId": "1bead7fa-0157-4d2c-9677-926852a4b018"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=translate this message into telugu and hindi :{{ $json.body.input }}",
+        "options": {
+          "systemMessage": "=Translate the text inside {{ $json.body.input }}  into Telugu and Hindi. Keep the original meaning.\nReturn the result in this format:\n\nTelugu Translation:\n<Telugu text>\n\nHindi Translation:\n<Hindi text>\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        32,
+        -64
+      ],
+      "id": "3cad05b4-8cdc-473b-9b84-926c7658318d",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -112,
+        144
+      ],
+      "id": "c82fe44e-70c0-4260-901a-36c22a3da2c0",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "XFsYAdcnx7l7oXxk",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "dbbdb96b-cd4d-4b38-8b0a-34f97a74e952",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "dfc2a6f431a0260ea921ed643447ecb957a58094fad7c5237ef6dc91688cbb0e"
+  },
+  "id": "o57Hf0pQwD7aY7aQ",
+  "tags": []
+}
